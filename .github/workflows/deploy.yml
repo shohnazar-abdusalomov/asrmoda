@@ -16,12 +16,23 @@ jobs:
           PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY }}
           HOST: ${{ secrets.EC2_HOST }}
           USER: ${{ secrets.EC2_USER }}
+          REPO: ${{ github.repository }}
+          TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           echo "$PRIVATE_KEY" > key.pem
           chmod 600 key.pem
+          
+          # Create deployment package
+          tar czf deploy.tar.gz --exclude='.git' --exclude='node_modules' .
+          
+          # Copy to EC2
+          scp -o StrictHostKeyChecking=no -i key.pem deploy.tar.gz $USER@$HOST:~/
+          
+          # Deploy on EC2
           ssh -o StrictHostKeyChecking=no -i key.pem $USER@$HOST << 'EOF'
             cd ~/asrmoda
-            git pull origin main
+            tar xzf ~/deploy.tar.gz
+            rm ~/deploy.tar.gz
             docker compose -f compose.prod.yaml down
             docker compose -f compose.prod.yaml up -d --build
             docker system prune -f
