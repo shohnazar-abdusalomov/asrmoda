@@ -23,7 +23,7 @@ jobs:
           chmod 600 key.pem
           
           # Create deployment package
-          tar czf deploy.tar.gz --exclude='.git' --exclude='node_modules' .
+          tar czf deploy.tar.gz --exclude='.git' --exclude='node_modules' . 2>/dev/null || true
           
           # Copy to EC2
           scp -o StrictHostKeyChecking=no -i key.pem deploy.tar.gz $USER@$HOST:~/
