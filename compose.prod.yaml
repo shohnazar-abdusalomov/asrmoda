@@ -8,6 +8,8 @@ services:
     volumes:
       - pgdata:/var/lib/postgresql/data
     restart: unless-stopped
+    networks:
+      - app
 
   server:
     build:
@@ -20,12 +22,16 @@ services:
     depends_on:
       - db
     restart: unless-stopped
+    networks:
+      - app
 
   client:
     build:
       context: .
       dockerfile: client/Dockerfile
     restart: unless-stopped
+    networks:
+      - app
 
   nginx:
     image: nginx:alpine
@@ -39,6 +45,11 @@ services:
       - client
       - server
     restart: unless-stopped
+    networks:
+      - app
 
 volumes:
   pgdata:
+
+networks:
+  app:
