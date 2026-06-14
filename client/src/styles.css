@@ -1734,7 +1734,7 @@ td small {
 
 @media (max-width: 760px) {
   .shell {
-    width: min(100% - 28px, 1400px);
+    width: calc(100% - 28px);
   }
 
   .announcement {
@@ -1750,6 +1750,9 @@ td small {
   .header {
     height: 70px;
     gap: 10px;
+    left: 14px;
+    right: 14px;
+    width: calc(100% - 28px);
   }
 
   .brand {
