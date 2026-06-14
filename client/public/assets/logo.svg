@@ -1,0 +1,8 @@
+<svg width="280" height="52" viewBox="0 0 280 52" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="AsrModa">
+  <!-- Decorative leaf mark -->
+  <path d="M6 42 C6 20 20 8 38 8 C38 8 38 30 20 40 Z" fill="#66715a" opacity="0.9"/>
+  <path d="M10 44 C22 36 34 22 38 8" stroke="rgba(102,113,90,0.4)" stroke-width="1.2" fill="none"/>
+  <!-- Wordmark -->
+  <text x="50" y="38" font-family="'Manrope', 'DM Sans', sans-serif" font-weight="800" font-size="34" letter-spacing="-1.8" fill="#161512">Asr</text>
+  <text x="122" y="38" font-family="'Manrope', 'DM Sans', sans-serif" font-weight="500" font-size="34" letter-spacing="-1" fill="#161512">Moda</text>
+</svg>
