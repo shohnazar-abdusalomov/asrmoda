@@ -1,9 +1,9 @@
 FROM node:24-alpine AS build
 WORKDIR /app
-COPY package.json package-lock.json ./
+COPY package.json ./
 COPY client/package.json ./client/package.json
 COPY server/package.json ./server/package.json
-RUN npm ci --workspace client
+RUN npm install --workspace client
 COPY client ./client
 RUN npm run build --workspace client
 
