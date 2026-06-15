@@ -47,7 +47,7 @@ export default function OrderLookup({ navigate }) {
           <label>Buyurtma raqami
             <input
               required
-              placeholder="AM-2026-123456"
+              placeholder="ASR-2026-123456"
               value={form.orderNumber}
               onChange={(e) => setForm({ ...form, orderNumber: e.target.value })}
             />

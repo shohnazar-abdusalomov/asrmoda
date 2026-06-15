@@ -116,6 +116,8 @@ export async function initializeDatabase() {
   `);
   await query("ALTER TABLE products ADD COLUMN IF NOT EXISTS image_url TEXT");
   await query("ALTER TABLE customers ADD COLUMN IF NOT EXISTS password_hash TEXT");
+  // Mavjud buyurtma raqamlarini eski "AM-" prefiksidan "ASR-" ga ko'chirish
+  await query("UPDATE orders SET order_number = 'ASR-' || substring(order_number from 4) WHERE order_number LIKE 'AM-%'");
   for (const product of products) {
     await query("UPDATE products SET image_url=$1 WHERE sku=$2 AND (image_url IS NULL OR image_url='')", [product[8], product[0]]);
   }
@@ -168,12 +170,12 @@ export async function initializeDatabase() {
         ('PO-26019',2,'approved',12750000,CURRENT_DATE + 8),
         ('PO-26020',3,'draft',8900000,CURRENT_DATE + 16);
       INSERT INTO orders (order_number,customer_id,status,payment_status,total,delivery_address,created_at) VALUES
-        ('AM-2026-001001',1,'delivered','paid',2450000,'Toshkent, Yunusabad tumani',NOW()-INTERVAL '8 days'),
-        ('AM-2026-001002',1,'shipped','paid',3890000,'Toshkent, Yunusabad tumani',NOW()-INTERVAL '3 days'),
-        ('AM-2026-001003',2,'confirmed','pending',1230000,'Samarqand, Samarqand tumani',NOW()-INTERVAL '2 days'),
-        ('AM-2026-001004',3,'delivered','paid',12300000,'Buxoro, Buxoro tumani',NOW()-INTERVAL '15 days'),
-        ('AM-2026-001005',3,'delivered','paid',8900000,'Buxoro, Buxoro tumani',NOW()-INTERVAL '10 days'),
-        ('AM-2026-001006',4,'delivered','paid',9850000,'Farg''ona, Farg''ona tumani',NOW()-INTERVAL '12 days');
+        ('ASR-2026-001001',1,'delivered','paid',2450000,'Toshkent, Yunusabad tumani',NOW()-INTERVAL '8 days'),
+        ('ASR-2026-001002',1,'shipped','paid',3890000,'Toshkent, Yunusabad tumani',NOW()-INTERVAL '3 days'),
+        ('ASR-2026-001003',2,'confirmed','pending',1230000,'Samarqand, Samarqand tumani',NOW()-INTERVAL '2 days'),
+        ('ASR-2026-001004',3,'delivered','paid',12300000,'Buxoro, Buxoro tumani',NOW()-INTERVAL '15 days'),
+        ('ASR-2026-001005',3,'delivered','paid',8900000,'Buxoro, Buxoro tumani',NOW()-INTERVAL '10 days'),
+        ('ASR-2026-001006',4,'delivered','paid',9850000,'Farg''ona, Farg''ona tumani',NOW()-INTERVAL '12 days');
       INSERT INTO order_items (order_id,product_id,quantity,unit_price) VALUES
         (1,1,2,389000),(1,3,1,349000),
         (2,2,1,429000),(2,5,1,519000),
@@ -186,7 +188,7 @@ export async function initializeDatabase() {
 
   await query(`
     INSERT INTO support_tickets (ticket_number,name,phone,email,subject,message,status,created_at) VALUES
-      ('YRD-0000001','Dilnoza Karimova','+998 90 123 45 67','dilnoza@example.uz','Buyurtma bo''yicha','AM-2026-123456 raqamli buyurtmam 3 kundan beri yo''lda ko''rsatilmoqda. Yetkazish muddati qachon?','open',NOW()-INTERVAL '2 days'),
+      ('YRD-0000001','Dilnoza Karimova','+998 90 123 45 67','dilnoza@example.uz','Buyurtma bo''yicha','ASR-2026-123456 raqamli buyurtmam 3 kundan beri yo''lda ko''rsatilmoqda. Yetkazish muddati qachon?','open',NOW()-INTERVAL '2 days'),
       ('YRD-0000002','Azizbek Rasulov','+998 93 765 43 21',NULL,'Qaytarish','Kechagina olgan ko''ylakni qaytarmoqchiman. Razmer mos kelmadi, S emas M kerak edi.','in_progress',NOW()-INTERVAL '1 day'),
       ('YRD-0000003','Malika Yusupova','+998 97 300 11 22','malika.buyurtma@gmail.com','Ulgurji hamkorlik','Biznes partnyorlik bo''yicha qiziqaman. Oyiga 200+ dona buyurtma berishimiz mumkin, narxlar bo''yicha muzokaralamoqchiman.','resolved',NOW()-INTERVAL '4 days'),
       ('YRD-0000004','Jamshid Toshmatov','+998 99 555 88 77',NULL,'Texnik yordam','Sayt orqali buyurtma qilishga harakat qildim lekin to''lov sahifasiga o''ta olmayapman. Xato xabar chiqmoqda.','open',NOW()-INTERVAL '3 hours'),

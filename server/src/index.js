@@ -136,7 +136,7 @@ app.post("/api/checkout", async (req, res, next) => {
       } else {
         await client.query("UPDATE customers SET total_spent=total_spent+$1 WHERE id=$2", [total, customer.rows[0].id]);
       }
-      const number = `AM-${new Date().getFullYear()}-${String(Date.now()).slice(-6)}`;
+      const number = `ASR-${new Date().getFullYear()}-${String(Date.now()).slice(-6)}`;
       const orderResult = await client.query(
         `INSERT INTO orders (order_number,customer_id,status,payment_status,total,delivery_address)
          VALUES ($1,$2,'new','cash_on_delivery',$3,$4) RETURNING *`,
