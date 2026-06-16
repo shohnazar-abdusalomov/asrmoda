@@ -45,7 +45,7 @@ export const statusLabels = {
 };
 
 export const menuItems = [
-  ["dashboard", LayoutDashboard, "Remodule", ["admin", "sales", "warehouse", "finance"]],
+  ["dashboard", LayoutDashboard, "Dashboard", ["admin", "sales", "warehouse", "finance"]],
   ["orders", ClipboardList, "Buyurtmalar", ["admin", "sales", "warehouse"]],
   ["crm", Users, "CRM", ["admin", "sales"]],
   ["products", Package, "Mahsulotlar", ["admin", "sales", "warehouse"]],
