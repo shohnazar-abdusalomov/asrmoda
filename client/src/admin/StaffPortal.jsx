@@ -73,7 +73,7 @@ export default function StaffPortal({ user, onLogout, onStore, setUser }) {
           type="button"
           className="portal-brand"
           onClick={() => selectPage("dashboard")}
-          aria-label="Boshqaruv paneliga o'tish"
+          aria-label="Remodulega o'tish"
         >
           <Logo dark width={110} />
         </button>
