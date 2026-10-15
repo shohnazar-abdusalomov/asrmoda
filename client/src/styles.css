@@ -437,10 +437,11 @@ p {
   border-radius: 14px;
   overflow: hidden;
   transition: .25s;
+  transform-style: preserve-3d;
 }
 
 .product-card:hover {
-  transform: translateY(-4px);
+  transform: perspective(1000px) rotateX(2deg) rotateY(-2deg) translateY(-4px) scale3d(1.02, 1.02, 1.02);
   box-shadow: 0 18px 50px rgba(39, 33, 26, .08);
 }
 
@@ -3300,10 +3301,11 @@ label textarea {
   cursor: pointer;
   box-shadow: none;
   transition: transform .3s;
+  transform-style: preserve-3d;
 }
 
 .category-card:hover {
-  transform: translateY(-2px);
+  transform: perspective(1000px) rotateX(2deg) rotateY(-2deg) translateY(-2px) scale3d(1.02, 1.02, 1.02);
 }
 
 /* dark gradient from bottom — strong enough to read over pale product images */
