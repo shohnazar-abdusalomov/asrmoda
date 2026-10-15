@@ -21,7 +21,7 @@ export default [
       ...reactHooks.configs.flat.recommended.rules,
       ...reactRefresh.configs.vite.rules,
       "react-hooks/set-state-in-effect": "off",
-      "no-unused-vars": ["error", { varsIgnorePattern: "^[A-Z_]" }]
+      "no-unused-vars": ["error", { destructuredArrayIgnorePattern: "^[A-Z_]", varsIgnorePattern: "^[A-Z_]" }]
     }
   }
 ];
